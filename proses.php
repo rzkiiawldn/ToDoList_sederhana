@@ -26,9 +26,10 @@ if (isset($_POST['registrasi'])) {
     $jam                = $_POST['jam'];
     $jenis_kegiatan     = $_POST['jenis_kegiatan'];
     $status_kegiatan    = 0;
+    $date_created       = date('Y-m-d');
 
     // buat query tambah data
-    $sql = "INSERT INTO tb_kegiatan (id_user, kegiatan, jam, jenis_kegiatan, status_kegiatan) VALUE ('$id_user', '$kegiatan', '$jam', '$jenis_kegiatan', '$status_kegiatan')";
+    $sql = "INSERT INTO tb_kegiatan (id_user, kegiatan, jam, jenis_kegiatan, status_kegiatan, date_created) VALUE ('$id_user', '$kegiatan', '$jam', '$jenis_kegiatan', '$status_kegiatan' , '$date_created')";
     $query = mysqli_query($conn, $sql);
 
     // apakah query simpan berhasil?

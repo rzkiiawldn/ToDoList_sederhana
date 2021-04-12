@@ -8,9 +8,9 @@
                     <div class="card-header">
                         Kegiatan hari ini
                     </div>
-                    <div class="row">
-                        <div class="col-md-12 mt-2 pr-4">
-                            <button type="button" class="btn btn-dark float-right" data-toggle="modal" data-target="#exampleModal">
+                    <div class="row justify-content-end">
+                        <div class="col-md-4 mt-2 pr-4 pl-4">
+                            <button type="button" class="btn btn-dark btn-block  float-right" data-toggle="modal" data-target="#exampleModal">
                                 + Tambah Kegiatan
                             </button>
                         </div>
@@ -59,6 +59,7 @@
                         // ambil data dari tabel kegiatan
                         $query      = mysqli_query($conn, "SELECT * FROM tb_kegiatan WHERE status_kegiatan = 0 ORDER BY jam ASC");
                         while ($kegiatan = mysqli_fetch_array($query)) { ?>
+                            <hr>
                             <blockquote class="blockquote mb-3 text-<?= $kegiatan['jenis_kegiatan'] == 'Normal' ? '' : 'danger'; ?>">
                                 <p><?= $no++; ?>. <?= $kegiatan['kegiatan']; ?></p>
                                 <p><?= $kegiatan['jam']; ?>.</p>
@@ -80,7 +81,7 @@
     </div>
 </main>
 <?php if (mysqli_num_rows($query) == 0) { ?>
-    <p style="margin-bottom: 200px"></p>
+    <p style="margin-bottom: 350px"></p>
 <?php } else { ?>
     <p style="margin-bottom: 50px"></p>
 <?php } ?>
