@@ -2,7 +2,24 @@
 
 require_once "koneksi.php";
 // Cek tombol tambah
-if (isset($_POST['tambah'])) {
+if (isset($_POST['registrasi'])) {
+    // Ambil data dari form input
+    $nama         = $_POST['nama'];
+    $username     = $_POST['username'];
+    $password     = $_POST['password'];
+
+    // buat query tambah data
+    $sql = "INSERT INTO tb_user (`nama`, `username`, `password`) VALUE ('$nama', '$username', '$password')";
+    $query = mysqli_query($conn, $sql);
+
+    if ($query) {
+        // kalau berhasil alihkan ke halaman index.php dengan status=sukses
+        header('Location: login.php?status=registrasi_berhasil');
+    } else {
+        // kalau gagal alihkan ke halaman indek.php dengan status=gagal
+        header('Location: registrasi.php?status=gagal_registrasi');
+    }
+} elseif (isset($_POST['tambah'])) {
     // Ambil data dari form input
     $id_user            = 1;
     $kegiatan           = $_POST['kegiatan'];

@@ -57,9 +57,9 @@
                         <?php
                         $no = 1;
                         // ambil data dari tabel kegiatan
-                        $query      = mysqli_query($conn, "SELECT * FROM tb_kegiatan WHERE status_kegiatan = 0 ORDER BY id_kegiatan DESC");
+                        $query      = mysqli_query($conn, "SELECT * FROM tb_kegiatan WHERE status_kegiatan = 0 ORDER BY jam ASC");
                         while ($kegiatan = mysqli_fetch_array($query)) { ?>
-                            <blockquote class="blockquote mb-3">
+                            <blockquote class="blockquote mb-3 text-<?= $kegiatan['jenis_kegiatan'] == 'Normal' ? '' : 'danger'; ?>">
                                 <p><?= $no++; ?>. <?= $kegiatan['kegiatan']; ?></p>
                                 <p><?= $kegiatan['jam']; ?>.</p>
                                 <footer class="blockquote-footer text-<?= $kegiatan['jenis_kegiatan'] == 'Normal' ? '' : 'danger'; ?>"><?= $kegiatan['jenis_kegiatan']; ?></footer>
