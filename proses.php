@@ -1,5 +1,6 @@
 <?php
-
+// mengaktifkan session php
+session_start();
 require_once "koneksi.php";
 // Cek tombol tambah
 if (isset($_POST['registrasi'])) {
@@ -19,9 +20,23 @@ if (isset($_POST['registrasi'])) {
         // kalau gagal alihkan ke halaman indek.php dengan status=gagal
         header('Location: registrasi.php?status=gagal_registrasi');
     }
+} elseif (isset($_POST['login'])) {
+    $username       = $_POST['username'];
+    $password       = $_POST['password'];
+    // membuat query tampil data dan menyeleksi apakah username dan password yang dimasukan sesuai atau tidak
+    $query          = mysqli_query($conn, "select * from tb_user where username = '$username' and password = '$password' ");
+    // setelah di query, lalu hitung jumlah yg dimasukan, apakah data yg dimasukan ada atau tidak
+    // jika datanya ada
+    if (mysqli_num_rows($query) == 1) {
+        $_SESSION['username']   = $username;
+        $_SESSION['status']     = "login";
+        header('Location: index.php');
+    } else {
+        header('Location: login.php?status=gagal_login');
+    }
 } elseif (isset($_POST['tambah'])) {
     // Ambil data dari form input
-    $id_user            = 1;
+    $id_user            = $_POST['id_user'];
     $kegiatan           = $_POST['kegiatan'];
     $jam                = $_POST['jam'];
     $jenis_kegiatan     = $_POST['jenis_kegiatan'];
@@ -84,5 +99,20 @@ if (isset($_POST['registrasi'])) {
     } else {
         // kalau gagal alihkan ke halaman indek.php dengan status=gagal
         header('Location: index.php?status=gagal');
+    }
+} elseif (isset($_POST['edit_profil'])) {
+    $id_user        = $_POST['id_user'];
+    $nama           = $_POST['nama'];
+    $username       = $_POST['username'];
+    $password       = $_POST['password'];
+    $sql = "update tb_user set nama='$nama', username='$username', password='$password' where id_user=$id_user";
+    $query = mysqli_query($conn, $sql);
+
+    if ($query) {
+        // kalau berhasil alihkan ke halaman index.php dengan status=sukses
+        header('Location: profil.php?status=edit_berhasil');
+    } else {
+        // kalau gagal alihkan ke halaman indek.php dengan status=gagal
+        header('Location: profil.php?status=gagal');
     }
 }

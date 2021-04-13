@@ -1,9 +1,52 @@
-<?php require_once "template/header.php"; ?>
+<?php require_once "template/header.php";
+if ($_SESSION['status'] != "login") {
+    header("location:login.php");
+}
 
+$username = $_SESSION['username'];
+$query      = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$username'");
+$data       = mysqli_fetch_assoc($query);
+$id_user    = $data['id_user'];
+?>
 <main>
     <div class="container-fluid">
         <div class="row justify-content-center" style="margin-top: 70px">
             <div class="col-md-8">
+                <?php if (isset($_GET['status'])) : ?>
+                    <p>
+                        <?php
+                        if ($_GET['status'] == 'berhasil_tambah_data') {
+                            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+                                <strong>Selamat!</strong> Kegiatan berhasil ditambahkan.
+                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                  <span aria-hidden='true'>&times;</span>
+                                </button>
+                              </div>";
+                        } elseif ($_GET['status'] == 'berhasil_hapus') {
+                            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+                                <strong>Selamat!</strong> Kegiatan berhasil dihapus.
+                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                  <span aria-hidden='true'>&times;</span>
+                                </button>
+                              </div>";
+                        } elseif ($_GET['status'] == 'berhasil_edit') {
+                            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+                                <strong>Selamat!</strong> Kegiatan berhasil diedit.
+                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                  <span aria-hidden='true'>&times;</span>
+                                </button>
+                              </div>";
+                        } else {
+                            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+                                <strong>Gagal!</strong>.
+                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                  <span aria-hidden='true'>&times;</span>
+                                </button>
+                              </div>";
+                        }
+                        ?>
+                    </p>
+                <?php endif; ?>
                 <div class="card">
                     <div class="card-header">
                         Kegiatan hari ini
@@ -14,50 +57,13 @@
                                 + Tambah Kegiatan
                             </button>
                         </div>
-                        <div class="col-md-12">
-                            <?php if (isset($_GET['status'])) : ?>
-                                <p>
-                                    <?php
-                                    if ($_GET['status'] == 'berhasil_tambah_data') {
-                                        echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-                                <strong>Selamat!</strong> Kegiatan berhasil ditambahkan.
-                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                                  <span aria-hidden='true'>&times;</span>
-                                </button>
-                              </div>";
-                                    } elseif ($_GET['status'] == 'berhasil_hapus') {
-                                        echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-                                <strong>Selamat!</strong> Kegiatan berhasil dihapus.
-                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                                  <span aria-hidden='true'>&times;</span>
-                                </button>
-                              </div>";
-                                    } elseif ($_GET['status'] == 'berhasil_edit') {
-                                        echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-                                <strong>Selamat!</strong> Kegiatan berhasil diedit.
-                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                                  <span aria-hidden='true'>&times;</span>
-                                </button>
-                              </div>";
-                                    } else {
-                                        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                                <strong>Gagal!</strong>.
-                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                                  <span aria-hidden='true'>&times;</span>
-                                </button>
-                              </div>";
-                                    }
-                                    ?>
-                                </p>
-                            <?php endif; ?>
-                        </div>
                     </div>
 
                     <div class="card-body">
                         <?php
                         $no = 1;
                         // ambil data dari tabel kegiatan
-                        $query      = mysqli_query($conn, "SELECT * FROM tb_kegiatan WHERE status_kegiatan = 0 ORDER BY jam ASC");
+                        $query      = mysqli_query($conn, "SELECT * FROM tb_kegiatan WHERE status_kegiatan = 0 AND id_user = $id_user ORDER BY jam ASC");
                         while ($kegiatan = mysqli_fetch_array($query)) { ?>
                             <hr>
                             <blockquote class="blockquote mb-3 text-<?= $kegiatan['jenis_kegiatan'] == 'Normal' ? '' : 'danger'; ?>">
@@ -99,6 +105,7 @@
             <div class="modal-body">
                 <form action="proses.php" method="post">
                     <div class="form-group">
+                        <input type="hidden" name="id_user" value="<?= $id_user ?>">
                         <label for="kegiatan">Kegiatan</label>
                         <input type="text" class="form-control" id="kegiatan" autofocus="kegiatan" name="kegiatan" required>
                     </div>
@@ -132,7 +139,7 @@ while ($kegiatan    = mysqli_fetch_array($query)) { ?>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="ubahKegiatanLabel">Tambah Kegiatan</h5>
+                    <h5 class="modal-title" id="ubahKegiatanLabel">Edit Kegiatan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

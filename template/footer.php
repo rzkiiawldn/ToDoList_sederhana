@@ -1,5 +1,5 @@
 <footer class="blockquote-footer">
-    <p class="text-center"><a href="https://instagram.com/rzkiiawldn" style="color: black;" target="_blank">Muhammad Rizki Awaludin</a></p>
+    <p class="text-center">Copyright by <a href="https://instagram.com/rzkiiawldn" style="color: black;" target="_blank">Muhammad Rizki Awaludin</a></p>
 </footer>
 <!-- Optional JavaScript; choose one of the two! -->
 

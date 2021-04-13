@@ -1,3 +1,6 @@
+apk to do list berbasis web, dibuatnya apk ini bertujuan untuk mencatat kegiatan harian
+di apk ini dapat mencatat dan mengubah kegiatan yg akan dilakukan pada hari tersebut dan data akan terhapus jika telah berganti hari
+
 1. membuat tampilan kegiatan harian (data untuk status kegiatan belum terlaksana)
 2. membuat tampilan kegiatan terlaksana (data untuk status kegiatan sudah terlaksana)
 3. membuat tambah data kegiatan
@@ -7,10 +10,10 @@
 7. jika kegiatan selesai di arahkan ke halaman kegiatan terlaksana
 8. membuat tampilan login
 9. membuat tampilan registrasi
+10. membuat proses registrasi dan login sederhana
+12. membuat logout
+13. jika data dalam database sudah sehari maka terhapus otomatis dan kembali kosong
 
 // yang belum dibuat
 
-10. membuat proses registrasi dan login sederhana
 11. membuat edit profil
-12. membuat logout
-13. jika data dalam database sudah sehari maka terhapus otomatis dan kembali kosong

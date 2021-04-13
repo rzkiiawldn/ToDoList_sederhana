@@ -1,4 +1,15 @@
 <?php require_once "koneksi.php" ?>
+<?php
+session_start();
+if ($_SESSION['status'] != "login") {
+    header("location:login.php");
+}
+
+$username = $_SESSION['username'];
+$query      = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$username'");
+$data       = mysqli_fetch_assoc($query);
+$id_user    = $data['id_user'];
+?>
 <!doctype html>
 <html lang="en">
 
@@ -22,9 +33,21 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ml-auto">
-                    <a class="nav-link" href="index.php">Kegiatan</a>
-                    <a class="nav-link" href="terlaksana.php">Terlaksana</a>
-                    <a class="nav-link" href="#">Keluar</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php">Kegiatan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="terlaksana.php">Terlaksana</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <?= $data['nama']; ?>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="profil.php">Edit Profil</a>
+                            <a class="dropdown-item" href="logout.php" onclick="return confirm('Yakin ingin keluar ?')">Keluar</a>
+                        </div>
+                    </li>
                 </div>
             </div>
         </div>

@@ -29,9 +29,23 @@
                                   <span aria-hidden='true'>&times;</span>
                                 </button>
                               </div>";
+                                } elseif ($_GET['status'] == 'belum_login') {
+                                    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+                                <strong>Gagal!</strong> Anda belum login.
+                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                  <span aria-hidden='true'>&times;</span>
+                                </button>
+                              </div>";
+                                } elseif ($_GET['status'] == 'logout') {
+                                    echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+                                Anda berhasil logout.
+                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                  <span aria-hidden='true'>&times;</span>
+                                </button>
+                              </div>";
                                 } else {
                                     echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                                <strong>Gagal!</strong>.
+                                <strong>Login gagal!</strong>, cek kembali username dan password.
                                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                   <span aria-hidden='true'>&times;</span>
                                 </button>
@@ -40,16 +54,16 @@
                                 ?>
                             </p>
                         <?php endif; ?>
-                        <form>
+                        <form action="proses.php" method="post">
                             <div class="form-group">
                                 <label for="username">Username</label>
                                 <input type="text" class="form-control" id="username" name="username">
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password">
+                                <input type="password" class="form-control" id="password" name="password">
                             </div>
-                            <button type="submit" class="btn btn-dark btn-block">Login</button>
+                            <button type="submit" class="btn btn-dark btn-block" name="login">Login</button>
                             <div class="form-group mt-4 text-center">
                                 <a href="registrasi.php">Buat akun</a>
                             </div>

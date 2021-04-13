@@ -1,5 +1,13 @@
-<?php require_once "template/header.php"; ?>
+<?php require_once "template/header.php";
+if ($_SESSION['status'] != "login") {
+    header("location:login.php");
+}
 
+$username = $_SESSION['username'];
+$query      = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$username'");
+$data       = mysqli_fetch_assoc($query);
+$id_user    = $data['id_user'];
+?>
 <main>
     <div class="container-fluid">
         <div class="row justify-content-center" style="margin-top: 70px">
@@ -38,7 +46,7 @@
                         <?php
                         $no = 1;
                         // ambil data dari tabel kegiatan
-                        $query      = mysqli_query($conn, "SELECT * FROM tb_kegiatan WHERE status_kegiatan = 1 ORDER BY id_kegiatan DESC");
+                        $query      = mysqli_query($conn, "SELECT * FROM tb_kegiatan WHERE status_kegiatan = 1 AND id_user = $id_user ORDER BY id_kegiatan DESC");
                         while ($kegiatan = mysqli_fetch_array($query)) { ?>
                             <blockquote class="blockquote mb-3">
                                 <p><?= $no++; ?>. <?= $kegiatan['kegiatan']; ?></p>
