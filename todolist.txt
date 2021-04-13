@@ -11,9 +11,8 @@ di apk ini dapat mencatat dan mengubah kegiatan yg akan dilakukan pada hari ters
 8. membuat tampilan login
 9. membuat tampilan registrasi
 10. membuat proses registrasi dan login sederhana
+11. membuat edit profil
 12. membuat logout
 13. jika data dalam database sudah sehari maka terhapus otomatis dan kembali kosong
 
 // yang belum dibuat
-
-11. membuat edit profil
